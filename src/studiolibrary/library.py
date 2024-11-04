@@ -304,7 +304,7 @@ class Library(QtCore.QObject):
         :rtype: None
         """
         if self.path():
-            studiolibrary.saveJson(self.databasePath(), data)
+            studiolibrary.saveJson(self.databasePath(), data, mode=0o666)
             self.setDirty(True)
         else:
             logger.info('No path set for saving the data to disc.')

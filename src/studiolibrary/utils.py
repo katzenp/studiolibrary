@@ -900,12 +900,13 @@ def updateJson(path, data):
     saveJson(path, data_)
 
 
-def saveJson(path, data):
+def saveJson(path, data, mode=None):
     """
     Serialize the data to a JSON string and write it to the given path.
 
     :type path: str
     :type data: dict
+    :mode mode: any value accepted by os.chmod
     :rtype: None
     """
     path = normPath(path)
@@ -913,6 +914,9 @@ def saveJson(path, data):
     data = collections.OrderedDict(sorted(data.items(), key=lambda t: t[0]))
     data = json.dumps(data, indent=4)
     write(path, data)
+    if mode:
+        print('>> Running: os.chmod({0}, {1})'.format(path, mode))
+        os.chmod(path, mode)
 
 
 def readJson(path):
