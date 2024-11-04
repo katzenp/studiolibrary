@@ -68,7 +68,7 @@ def save(data):
     """
     global _settings
     _settings = None
-    studiolibrary.updateJson(path(), data)
+    studiolibrary.updateJson(path(), data, mode=0o666)
 
 
 def reset():

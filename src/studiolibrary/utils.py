@@ -887,17 +887,18 @@ def update(data, other):
     return data
 
 
-def updateJson(path, data):
+def updateJson(path, data, mode=None):
     """
     Update a json file with the given data.
 
     :type path: str
     :type data: dict
+    :type mode: any value accepted by os.chmod
     :rtype: None
     """
     data_ = readJson(path)
     data_ = update(data_, data)
-    saveJson(path, data_)
+    saveJson(path, data_, mode)
 
 
 def saveJson(path, data, mode=None):
@@ -906,7 +907,7 @@ def saveJson(path, data, mode=None):
 
     :type path: str
     :type data: dict
-    :mode mode: any value accepted by os.chmod
+    :type mode: any value accepted by os.chmod
     :rtype: None
     """
     path = normPath(path)
@@ -977,23 +978,24 @@ def readSettings():
     return data
 
 
-def saveSettings(data):
+def saveSettings(data, mode=None):
     """
     Save the given data to the settings path.
     
-    :type data:  
+    :type data:
+    :type mode: any value accepted by os.chmod 
     """
     path = settingsPath()
 
     logger.debug(u'Saving settings to "%s"', path)
 
     try:
-        studiolibrary.saveJson(path, data)
+        studiolibrary.saveJson(path, data, mode)
     except Exception:
         logger.exception(u'Cannot save settings to "%s"', path)
 
 
-def replaceJson(path, old, new, count=-1):
+def replaceJson(path, old, new, count=-1, mode=None):
     """
     Replace the old value with the new value in the given json file.
     
@@ -1001,6 +1003,7 @@ def replaceJson(path, old, new, count=-1):
     :type old: str
     :type new: str
     :type count: int
+    :type mode: any value accepted by os.chmod
     :rtype: dict
     """
     old = six.text_type(old)
@@ -1010,7 +1013,7 @@ def replaceJson(path, old, new, count=-1):
     data = data.replace(old, new, count)
     data = json.loads(data)
 
-    saveJson(path, data)
+    saveJson(path, data, mode)
 
     return data
 

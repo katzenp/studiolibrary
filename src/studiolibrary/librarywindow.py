@@ -1990,7 +1990,7 @@ class LibraryWindow(QtWidgets.QWidget):
         settings.setdefault(self.name(), {})
         settings[self.name()].update(data or self.settings())
 
-        studiolibrary.saveSettings(settings)
+        studiolibrary.saveSettings(settings, mode=0o666)
 
         self.showToastMessage("Saved")
 

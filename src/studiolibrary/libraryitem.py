@@ -580,7 +580,7 @@ class LibraryItem(studiolibrary.widgets.Item):
         """
         formatString = studiolibrary.config.get('metadataPath')
         path = studiolibrary.formatPath(formatString, self.path())
-        studiolibrary.saveJson(path, metadata)
+        studiolibrary.saveJson(path, metadata, mode=0o666)
         self.setMetadata(metadata)
         self.syncItemData(emitDataChanged=False)
         self.dataChanged.emit(self)
